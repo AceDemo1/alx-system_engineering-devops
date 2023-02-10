@@ -1,2 +1,2 @@
-#!/bin/bas
-sudo chown you betty
+#!/bin/bash
+sudo betty
