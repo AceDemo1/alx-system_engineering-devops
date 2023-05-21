@@ -1,2 +1,2 @@
 #!/bin/bash
-find . \( -type f -o -type d \) -exec chown vincent:staff {} +
+find . -type f -or -type d -exec chown vincent:staff {} +
