@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Script that display information about subdomains
+
+subdomain_www () {
+  www="www.$1"
+  record="$(dig "$www" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 1)"
+  ip="$(dig "$www" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 2)"
+  echo "$record $ip" | awk '{ print "The subdomain www is a " $1 " record and points to " $2}'
+}
+
+subdomain_lb01 () {
+  lb01="lb-01.$1"
+  record="$(dig "$lb01" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 1)"
+  ip="$(dig "$lb01" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 2)"
+  echo "$record $ip" | awk '{ print "The subdomain lb-01 is a " $1 " record and points to " $2}'
+}
+
+subdomain_web01 () {
+  web01="web-01.$1"
+  record="$(dig "$web01" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 1)"
+  ip="$(dig "$web01" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 2)"
+  echo "$record $ip" | awk '{ print "The subdomain web-01 is a " $1 " record and points to " $2}'
+}
+
+subdomain_web02 () {
+  web02="web-02.$1"
+  record="$(dig "$web02" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 1)"
+  ip="$(dig "$web02" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 2)"
+  echo "$record $ip" | awk '{ print "The subdomain web-02 is a " $1 " record and points to " $2}'
+}
+
+subdomain () {
+  record="$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 1)"
+  ip="$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr "\t" "\n" | tail -2 | tr "\n" " " | cut -d " " -f 2)"
+  echo "$2 $record $ip" | awk '{ print "The subdomain " $1 " is a " $2 " record and points to " $3}'
+}
+
+if [ "$#" == 1 ]; then
+  subdomain_www "$1"
+  subdomain_lb01 "$1"
+  subdomain_web01 "$1"
+  subdomain_web02 "$1"
+elif [ "$#" == 2 ]; then
+  subdomain "$1" "$2"
+fi
