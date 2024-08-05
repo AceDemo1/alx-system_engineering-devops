@@ -1,0 +1,6 @@
+#config_file
+Host server
+	HostName 98.98.98.98
+	User ubuntu
+	IdentityFile ~/.ssh/school
+	PasswordAuthentication no
