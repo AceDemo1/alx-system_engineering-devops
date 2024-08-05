@@ -1,2 +1,2 @@
-#!/usr/bin/env bashi
+#!/usr/bin/env bash
 ssh -i ~/.ssh/school ubuntu@54.236.33.140
