@@ -1,4 +1,5 @@
-nstall nginx web server
+#!/usr/bin/env bash
+#install nginx web server
 # 3 steps:
 #+ 1. Install nginx on my 3685-web-01 server
 #+ 2. Nginx should be listening on port 80 and start the webserver
