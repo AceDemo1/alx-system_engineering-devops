@@ -1,7 +1,15 @@
-#!/usr/bin/env bash
-#install nginx
-sudo apt-get update -y
-sudo apt-get -y install nginx
-echo 'Hello World!' | sudo tee /var/www/html/index.html
-s
-ervice nginx start
+nstall nginx web server
+# 3 steps:
+#+ 1. Install nginx on my 3685-web-01 server
+#+ 2. Nginx should be listening on port 80 and start the webserver
+#+ 3. When querying Nginx at its root / with a GET request (requesting a page) using curl, it must return a page that contains the string Hello World
+
+apt-get update
+apt-get -y upgrade
+apt-get -y install nginx
+
+ufw allow 'Nginx HTTP'
+
+echo "Hello World" >> /var/www/html/index.nginx-debian.html
+
+service nginx restart
