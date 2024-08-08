@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#install nginx web server
+# 3 steps:
+#+ 1. Install nginx on my 3685-web-01 server
+#+ 2. Nginx should be listening on port 80 and start the webserver
+#+ 3. When querying Nginx at its root / with a GET request (requesting a page) using curl, it must return a page that contains the string Hello World
+
+apt-get update
+apt-get -y upgrade
+apt-get -y install nginx
+
+ufw allow 'Nginx HTTP'
+
+echo "Hello World!" > /var/www/html/index.html
+sed -i '/^server {/a location /redirect_me { return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; }' /etc/nginx/sites-available/default
+sed -i '/server_name _;/a error_page 404 /404.html;\nlocation = /404.html {\nroot /var/www/html;\ninternal;\n}' /etc/nginx/sites-available/default
+service nginx restart
