@@ -12,8 +12,8 @@ frontend law
 	default_backend lawback
 backend lawback
 	balance roundrobin
-	server 282973-web-01 54.158.183.229:80 check
-	server 282973-web-02 52.3.240.150:80 check
+	server web-01 54.158.183.229:80 check
+	server web-02 52.3.240.150:80 check
 "
 echo "$config" | sudo  tee -a /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
