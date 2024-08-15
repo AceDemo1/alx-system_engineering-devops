@@ -13,6 +13,7 @@ frontend law
 	http-request set-header Connection keep-alive
 
 backend lawback
+	http-response set-header X-Served-By %[srv_name]
 	balance roundrobin
 	server 282973-web-01 54.158.183.229:80 check
 	server 282973-web-02 52.3.240.150:80 check
