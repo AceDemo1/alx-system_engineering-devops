@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#install HAproxy
+
+sudo apt-get update -y
+sudo apt-get install haproxy
+
+config=\
+"
+frontend law
+	bind *:80
+	mode http
+	default_backend lawback
+backend lawback
+	balance roundrobin
+	server 282973-web-01 54.158.183.229:80 check
+	server 282973-web-02 52.3.240.150:80 check
+"
+sed -i "$a $config" /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
