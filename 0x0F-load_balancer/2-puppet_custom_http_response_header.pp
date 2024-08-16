@@ -1,4 +1,21 @@
 #automation
+
+exec { 'update':
+  command => 'sudo apt-get update',
+  path    => '/usr/bin',
+}
+
+exec { 'upgrade':
+  command => 'sudo apt-get -y upgrade',
+  path    => '/usr/bin',
+}
+
+package { 'nginx':
+  ensure  => present,
+  name    => 'nginx',
+  require => Exec['update'],
+}
+
 package { 'nginx':
   ensure => 'installed',
 }
