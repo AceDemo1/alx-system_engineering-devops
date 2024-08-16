@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Modify Nginx to listen on port 80 and stop the service
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-service nginx stop
-pkill nginx
+service nginx restart
+kill -9 "$(cat /var/run/nginx.pid)"
