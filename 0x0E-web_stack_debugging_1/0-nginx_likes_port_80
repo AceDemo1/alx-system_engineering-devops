@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#symbolic link
 service stop
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
