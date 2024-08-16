@@ -3,7 +3,7 @@ package { 'nginx':
   ensure => 'installed',
 }
 
-exec { 'header':
+file_line { 'header':
   ensure => 'present',
   path => '/etc/nginx/sites-available/default',
   after => 'server_name_;',
