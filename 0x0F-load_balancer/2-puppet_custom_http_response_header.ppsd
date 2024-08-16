@@ -16,10 +16,6 @@ package { 'nginx':
   require => Exec['update'],
 }
 
-package { 'nginx':
-  ensure => 'installed',
-}
-
 file_line { 'header':
   ensure => 'present',
   path => '/etc/nginx/sites-available/default',
