@@ -3,7 +3,7 @@
 
 display ()
 {
-	dig "$2"."$1" | awk '/ANSWER SECTION:/{getline; split($1,b,"."); print "The subdomain "b[1]" is a "$4" record and points to "$5}'
+	dig "$2"."$1" | awk '/ANSWER SECTION:/{getline; print "The subdomain "$2" is a "$4" record and points to "$5}'
 }
 for sub in "www" "lb-01" "web-01" "web-02"; do
 	if [ -z "$2" ] || [ "$2" == "$sub" ]; then
