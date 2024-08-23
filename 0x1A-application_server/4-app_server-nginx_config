@@ -1,0 +1,46 @@
+##
+# Configuration of Nginx to serve the page /airbnb-onepage/ from AirBnB_clone_v2
+#
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location /hbnb_static {
+		 alias /data/web_static/current/;
+	}
+
+	location /airbnb-onepage/ {
+		 proxy_pass http://0.0.0.0:5000/airbnb-onepage/;
+	}
+
+	location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+		 proxy_pass http://0.0.0.0:5001/number_odd_or_even/$1;
+	}
+
+	location /api/ {
+		 proxy_pass http://0.0.0.0:5002/api/;
+	}
+
+	add_header X-Served-By ${HOSTNAME};
+
+	error_page 404 /404.html;
+	location = /404.html {
+		 root /var/www/html;
+		 internal;
+	}
+
+	location /redirect_me {
+		 rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+	}
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+}

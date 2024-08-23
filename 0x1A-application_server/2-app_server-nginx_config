@@ -1,0 +1,29 @@
+##
+# Configuration of Nginx to serve the page /airbnb-onepage/ from AirBnB_clone_v2
+#
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	# Serve the page airbnb-onepage with gunicorn
+	location /airbnb-onepage/ {
+		 proxy_pass http://0.0.0.0:5000/aribnb-onepage;
+	}
+
+	add_header X-Served-By ${HOSTNAME};
+
+	error_page 404 /404.html;
+	location = /404.html {
+		 root /var/www/html;
+		 internal;
+	}
+
+	location /redirect_me {
+		 rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+	}
+}
